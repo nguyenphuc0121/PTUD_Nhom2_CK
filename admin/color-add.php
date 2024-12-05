@@ -6,39 +6,38 @@ if(isset($_POST['form1'])) {
 
     if(empty($_POST['color_name'])) {
         $valid = 0;
-        $error_message .= "Color Name can not be empty<br>";
+        $error_message .= "Tên màu không được để trống<br>";
     } else {
-    	// Duplicate Category checking
+    	// Kiểm tra trùng lặp
     	$statement = $pdo->prepare("SELECT * FROM tbl_color WHERE color_name=?");
     	$statement->execute(array($_POST['color_name']));
     	$total = $statement->rowCount();
     	if($total)
     	{
     		$valid = 0;
-        	$error_message .= "Color Name already exists<br>";
+        	$error_message .= "Tên màu đã tồn tại<br>";
     	}
     }
 
     if($valid == 1) {
 
-		// Saving data into the main table tbl_color
+		// Lưu dữ liệu vào bảng chính tbl_color
 		$statement = $pdo->prepare("INSERT INTO tbl_color (color_name) VALUES (?)");
 		$statement->execute(array($_POST['color_name']));
 	
-    	$success_message = 'Color is added successfully.';
+    	$success_message = 'Thêm màu thành công.';
     }
 }
 ?>
 
 <section class="content-header">
 	<div class="content-header-left">
-		<h1>Add Color</h1>
+		<h1>Thêm Màu</h1>
 	</div>
 	<div class="content-header-right">
-		<a href="color.php" class="btn btn-primary btn-sm">View All</a>
+		<a href="color.php" class="btn btn-primary btn-sm">Xem Tất Cả</a>
 	</div>
 </section>
-
 
 <section class="content">
 
@@ -66,7 +65,7 @@ if(isset($_POST['form1'])) {
 				<div class="box box-info">
 					<div class="box-body">
 						<div class="form-group">
-							<label for="" class="col-sm-2 control-label">Color Name <span>*</span></label>
+							<label for="" class="col-sm-2 control-label">Tên Màu <span>*</span></label>
 							<div class="col-sm-4">
 								<input type="text" class="form-control" name="color_name">
 							</div>
@@ -74,7 +73,7 @@ if(isset($_POST['form1'])) {
 						<div class="form-group">
 							<label for="" class="col-sm-2 control-label"></label>
 							<div class="col-sm-6">
-								<button type="submit" class="btn btn-success pull-left" name="form1">Submit</button>
+								<button type="submit" class="btn btn-success pull-left" name="form1">Gửi</button>
 							</div>
 						</div>
 					</div>
